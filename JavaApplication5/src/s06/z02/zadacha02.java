@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package s06.z02;
 
 import info.clearthought.layout.TableLayout;
@@ -44,27 +40,31 @@ public class zadacha02 {
 
             public void actionPerformed(ActionEvent e) {
                 StyledDocument sd = editb.getStyledDocument();
-                SimpleAttributeSet sas = new SimpleAttributeSet();
+                SimpleAttributeSet emptySas = new SimpleAttributeSet();
+                sd.setCharacterAttributes(0, sd.getLength(), emptySas, true);
 
                 Pattern pat1 = Pattern.compile(field1.getText());
                 Matcher mat1 = pat1.matcher(editb.getText());
                 while (mat1.find()) {
+                    SimpleAttributeSet sas = new SimpleAttributeSet();
                     sas.addAttribute(StyleConstants.Bold, true);
-                    sd.setCharacterAttributes(mat1.start(), (mat1.end() - mat1.start()), sas, true);
+                    sd.setCharacterAttributes(mat1.start(), mat1.end() - mat1.start(), sas, false);
                 }
 
                 Pattern pat2 = Pattern.compile(field2.getText());
                 Matcher mat2 = pat2.matcher(editb.getText());
                 while (mat2.find()) {
+                    SimpleAttributeSet sas = new SimpleAttributeSet();
                     sas.addAttribute(StyleConstants.Background, new Color(100, 120, 222));
-                    sd.setCharacterAttributes(mat2.start(), (mat2.end() - mat2.start()), sas, true);
+                    sd.setCharacterAttributes(mat2.start(), mat2.end() - mat2.start(), sas, false);
                 }
 
                 Pattern pat3 = Pattern.compile(field3.getText());
                 Matcher mat3 = pat3.matcher(editb.getText());
                 while (mat3.find()) {
-                    sas.addAttribute(StyleConstants.FontSize, 25);
-                    sd.setCharacterAttributes(mat3.start(), (mat3.end() - mat3.start()), sas, true);
+                    SimpleAttributeSet sas = new SimpleAttributeSet();
+                    sas.addAttribute(StyleConstants.Italic, true);
+                    sd.setCharacterAttributes(mat3.start(), mat3.end() - mat3.start(), sas, false);
                 }
             }
         });
