@@ -5,6 +5,8 @@ import info.clearthought.layout.TableLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -68,6 +70,21 @@ public class zadacha02 {
                 }
             }
         });
+
+        saveb.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    PrintStream ps = new PrintStream("G:/java/expressions.txt");
+                    ps.println(field1.getText());
+                    ps.println(field2.getText());
+                    ps.println(field3.getText());
+                } catch (FileNotFoundException e1) {
+                    System.out.println("Не удалось сохранить в файл");
+                }
+            }
+        });
+
         f.add(field1,
                 "0,3");
         f.add(field2,
