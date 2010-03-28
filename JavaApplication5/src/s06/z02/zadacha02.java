@@ -71,20 +71,36 @@ public class zadacha02 {
             }
         });
 
-/*        uploadb.addActionListener(new ActionListener() {
+        uploadb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                int returnv = fc.showOpenDialog(parent);
+                int returnv = fc.showOpenDialog(null);
                 if (returnv == JFileChooser.APPROVE_OPTION) {
                     File filefc = fc.getSelectedFile();
-                    editpane.setText(ReadUtils.readInput(filefc));
+//                    editpane.setText(ReadUtils.readInput(filefc));
+                    try {
+
+                        FileReader fr = new FileReader(filefc.getName());
+                        StringBuffer sb = new StringBuffer();
+                        int symbol;
+                        while ((symbol = fr.read()) != -1) {
+                            sb.append((char) symbol);
+                        }
+                        editpane.setText(sb.toString());
+                    }
+                    catch (FileNotFoundException ex) {
+                        System.out.println(ex);
+                    }
+                    catch (IOException ex) {
+                        System.out.println(ex);
+                    }
+
                 } else {
-                    editpane.setText("Âû íå âûáðàëè íè îäèí ôàéë");
+                    editpane.setText("Type the text by yourself");
                 }
 
             }
-        });*/
-
+        });
 
 
         saveb.addActionListener(new ActionListener() {
