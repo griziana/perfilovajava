@@ -32,20 +32,21 @@ public class zadacha02 {
         final JTextField field2 = new JTextField();
         final JTextField field3 = new JTextField();
         JButton findb = new JButton("Find");
-        final JTextPane editb = new JTextPane();
+        final JTextPane editpane = new JTextPane();
         JButton uploadb = new JButton("Upload"); //into TextPane
         JButton saveb = new JButton("Save");
         JButton loadb = new JButton("Load");
+        final JFileChooser fc = new JFileChooser();
 
         findb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                StyledDocument sd = editb.getStyledDocument();
+                StyledDocument sd = editpane.getStyledDocument();
                 SimpleAttributeSet emptySas = new SimpleAttributeSet();
                 sd.setCharacterAttributes(0, sd.getLength(), emptySas, true);
 
                 Pattern pat1 = Pattern.compile(field1.getText());
-                Matcher mat1 = pat1.matcher(editb.getText());
+                Matcher mat1 = pat1.matcher(editpane.getText());
                 while (mat1.find()) {
                     SimpleAttributeSet sas = new SimpleAttributeSet();
                     sas.addAttribute(StyleConstants.Bold, true);
@@ -53,7 +54,7 @@ public class zadacha02 {
                 }
 
                 Pattern pat2 = Pattern.compile(field2.getText());
-                Matcher mat2 = pat2.matcher(editb.getText());
+                Matcher mat2 = pat2.matcher(editpane.getText());
                 while (mat2.find()) {
                     SimpleAttributeSet sas = new SimpleAttributeSet();
                     sas.addAttribute(StyleConstants.Background, new Color(100, 120, 222));
@@ -61,7 +62,7 @@ public class zadacha02 {
                 }
 
                 Pattern pat3 = Pattern.compile(field3.getText());
-                Matcher mat3 = pat3.matcher(editb.getText());
+                Matcher mat3 = pat3.matcher(editpane.getText());
                 while (mat3.find()) {
                     SimpleAttributeSet sas = new SimpleAttributeSet();
                     sas.addAttribute(StyleConstants.Italic, true);
@@ -70,11 +71,27 @@ public class zadacha02 {
             }
         });
 
+/*        uploadb.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                int returnv = fc.showOpenDialog(parent);
+                if (returnv == JFileChooser.APPROVE_OPTION) {
+                    File filefc = fc.getSelectedFile();
+                    editpane.setText(ReadUtils.readInput(filefc));
+                } else {
+                    editpane.setText("Âû íå âûáðàëè íè îäèí ôàéë");
+                }
+
+            }
+        });*/
+
+
+
         saveb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 try {
-                    PrintStream ps = new PrintStream("G:/java/expressions.txt");
+                    PrintStream ps = new PrintStream("../expressions.txt");
                     ps.println(field1.getText());
                     ps.println(field2.getText());
                     ps.println(field3.getText());
@@ -86,12 +103,14 @@ public class zadacha02 {
 
         loadb.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {               
+            public void actionPerformed(ActionEvent e) {
                 try {
-                    BufferedReader br = new BufferedReader(new FileReader("G:/java/expressions.txt"));
-                    String line= br.readLine();
+                    BufferedReader br = new BufferedReader(new FileReader("../expressions.txt"));
+                    String line = br.readLine();
                     while (line != null) {
-                        System.out.println(line);
+                        field1.setText(line);
+                        field2.setText(line);
+                        field3.setText(line);
                     }
                     br.close();
                 } catch (IOException e2) {
@@ -109,7 +128,7 @@ public class zadacha02 {
         f.add(findb,
                 "3,0");
 
-        f.add(editb,
+        f.add(editpane,
                 "0,0,2,2");
 
         f.add(uploadb,
