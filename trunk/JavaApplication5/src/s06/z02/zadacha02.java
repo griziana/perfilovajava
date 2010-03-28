@@ -38,6 +38,7 @@ public class zadacha02 {
         JButton loadb = new JButton("Load");
         final JFileChooser fc = new JFileChooser();
 
+        // Регулярные выражения ищутся в тексте
         findb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +72,7 @@ public class zadacha02 {
             }
         });
 
+        // Загрузка текста в JTextPane из файла
         uploadb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -101,7 +103,7 @@ public class zadacha02 {
             }
         });
 
-
+        // Запись регулярных выражений В файл
         saveb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -116,20 +118,30 @@ public class zadacha02 {
             }
         });
 
+        // Запись регулярных выражений ИЗ файла
         loadb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                BufferedReader br = null;
                 try {
-                    BufferedReader br = new BufferedReader(new FileReader("../expressions.txt"));
+                    br = new BufferedReader(new FileReader("../expressions.txt"));
                     String line = br.readLine();
                     while (line != null) {
                         field1.setText(line);
-                        field2.setText(line);
-                        field3.setText(line);
+/*                        field2.setText(line);
+                        field3.setText(line);*/
                     }
-                    br.close();
+//                    br.close();
                 } catch (IOException e2) {
                     System.out.println("Can't load from the file");
+                } finally {
+                    try {
+                        if (br != null)
+                          br.close();
+                    } catch (IOException ex) {
+                        System.out.println("ex");
+                    }
+                    
                 }
             }
         });
