@@ -76,16 +76,15 @@ public class zadacha02 {
             public void actionPerformed(ActionEvent e) {
                 int returnv = fc.showOpenDialog(null);
                 if (returnv == JFileChooser.APPROVE_OPTION) {
-                    File filefc = fc.getSelectedFile();
-//                    editpane.setText(ReadUtils.readInput(filefc));
                     try {
 
-                        FileReader fr = new FileReader(filefc.getName());
+                        FileReader fr = new FileReader(fc.getSelectedFile().getPath());
                         StringBuffer sb = new StringBuffer();
                         int symbol;
-                        while ((symbol = fr.read()) != -1) {
+                        while ((symbol = fr.read()) > -1) {
                             sb.append((char) symbol);
                         }
+                        fr.close();
                         editpane.setText(sb.toString());
                     }
                     catch (FileNotFoundException ex) {
