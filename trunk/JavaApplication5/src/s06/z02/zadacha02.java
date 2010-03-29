@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -20,9 +21,10 @@ public class zadacha02 {
 
     public static void main(String[] args) {
 
-        TableLayout tl1 = new TableLayout(new double[]{0.3, 0.3, 0.3, 0.127}, new double[]{0.25, 0.25, 0.25, 0.25});
+        TableLayout tl1 = new TableLayout(new double[]{0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125},
+                new double[]{0.25, 0.25, 0.25, 0.25});
         JFrame f = new JFrame();
-        f.setSize(650, 350);
+        f.setSize(800, 200);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(tl1);
@@ -31,11 +33,11 @@ public class zadacha02 {
         final JTextField field1 = new JTextField();
         final JTextField field2 = new JTextField();
         final JTextField field3 = new JTextField();
-        JButton findb = new JButton("Find");
+        JButton findb = new JButton("Find regex");
         final JTextPane editpane = new JTextPane();
-        JButton uploadb = new JButton("Upload"); //into TextPane
-        JButton saveb = new JButton("Save");
-        JButton loadb = new JButton("Load");
+        JButton uploadb = new JButton("Upload text"); //into TextPane
+        JButton saveb = new JButton("Save regex");
+        JButton loadb = new JButton("Load regex");
         final JFileChooser fc = new JFileChooser();
 
         // –егул€рные выражени€ ищутс€ в тексте
@@ -107,13 +109,16 @@ public class zadacha02 {
         saveb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                PrintStream ps = null;
                 try {
-                    PrintStream ps = new PrintStream("../expressions.txt");
+                    ps = new PrintStream("../expressions.txt");
                     ps.println(field1.getText());
                     ps.println(field2.getText());
                     ps.println(field3.getText());
                 } catch (FileNotFoundException e1) {
                     System.out.println("Can't write into the file");
+                } finally {
+                    ps.close();
                 }
             }
         });
@@ -123,47 +128,57 @@ public class zadacha02 {
 
             public void actionPerformed(ActionEvent e) {
                 BufferedReader br = null;
+                String line;
                 try {
                     br = new BufferedReader(new FileReader("../expressions.txt"));
-                    String line = br.readLine();
-                    while (line != null) {
-                        field1.setText(line);
-/*                        field2.setText(line);
-                        field3.setText(line);*/
+                    line = br.readLine();
+                    field1.setText(line);
+                    if (line != null) {
+                        line = br.readLine();
+                        field2.setText(line);
+                        if (line != null) {
+                            line = br.readLine();
+                            field3.setText(line);
+                        }
+                        if (line == null) {
+                            br.close();
+                        }
                     }
-//                    br.close();
+
+
                 } catch (IOException e2) {
                     System.out.println("Can't load from the file");
-                } finally {
+                }
+/*                finally {
                     try {
                         if (br != null)
                           br.close();
                     } catch (IOException ex) {
                         System.out.println("ex");
                     }
-                    
-                }
+
+                }*/
             }
         });
 
-        f.add(field1,
-                "0,3");
-        f.add(field2,
-                "1,3");
-        f.add(field3,
-                "2,3");
-        f.add(findb,
-                "3,0");
-
         f.add(editpane,
-                "0,0,2,2");
+                "0,0,3,3");
 
+        f.add(field1,
+                "4,0,7,0");
+        f.add(field2,
+                "4,1,7,1");
+        f.add(field3,
+                "4,2,7,2");
+
+        f.add(findb,
+                "4,3");
         f.add(uploadb,
-                "3,1");
+                "5,3");
         f.add(saveb,
-                "3,2");
+                "6,3");
         f.add(loadb,
-                "3,3");
+                "7,3");
         f.setVisible(
                 true);
 
