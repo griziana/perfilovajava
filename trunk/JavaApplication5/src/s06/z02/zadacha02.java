@@ -5,6 +5,8 @@ import info.clearthought.layout.TableLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -26,19 +28,27 @@ public class zadacha02 {
         JFrame f = new JFrame();
         f.setSize(800, 200);
         f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         f.setLayout(tl1);
 
 
         final JTextField field1 = new JTextField();
         final JTextField field2 = new JTextField();
         final JTextField field3 = new JTextField();
-        JButton findb = new JButton("Find regex");
+        final JButton findb = new JButton("Find regex");
         final JTextPane editpane = new JTextPane();
-        JButton uploadb = new JButton("Upload text"); //into TextPane
-        JButton saveb = new JButton("Save regex");
-        JButton loadb = new JButton("Load regex");
+        final JButton uploadb = new JButton("Upload text"); //into TextPane
+        final JButton saveb = new JButton("Save regex");
+        final JButton loadb = new JButton("Load regex");
         final JFileChooser fc = new JFileChooser();
+        f.addWindowListener(new WindowAdapter() {
+            public void windowOpened(WindowEvent e) {
+                loadb.doClick(1);
+            }
+            public void windowClosing(WindowEvent e) {
+                saveb.doClick(1);
+            }
+        });
 
         // –егул€рные выражени€ ищутс€ в тексте
         findb.addActionListener(new ActionListener() {
@@ -181,6 +191,18 @@ public class zadacha02 {
                 "7,3");
         f.setVisible(
                 true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+/*        class WindowListener extends WindowAdapter {
+
+            public void windowOpened(WindowEvent e) {
+                loadb.doClick(1);
+            }
+
+            public void windowClosed(WindowEvent e) {
+                saveb.doClick();
+            }
+
+        }*/
 
     }
 }
