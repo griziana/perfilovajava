@@ -45,6 +45,7 @@ public class zadacha02 {
             public void windowOpened(WindowEvent e) {
                 loadb.doClick(1);
             }
+
             public void windowClosing(WindowEvent e) {
                 saveb.doClick(1);
             }
@@ -128,7 +129,12 @@ public class zadacha02 {
                 } catch (FileNotFoundException e1) {
                     System.out.println("Can't write into the file");
                 } finally {
-                    ps.close();
+                    try {
+                        ps.close();
+                    }
+                    catch (NullPointerException ex0) {
+                        System.out.println(ex0);
+                    }
                 }
             }
         });
@@ -142,32 +148,29 @@ public class zadacha02 {
                 try {
                     br = new BufferedReader(new FileReader("../expressions.txt"));
                     line = br.readLine();
-                    field1.setText(line);
-                    if (line != null) {
-                        line = br.readLine();
-                        field2.setText(line);
-                        if (line != null) {
-                            line = br.readLine();
-                            field3.setText(line);
-                        }
-                        if (line == null) {
-                            br.close();
-                        }
-                    }
+                    if (line != null)
+                        field1.setText(line);
 
+                    line = br.readLine();
+                    if (line != null)
+                        field2.setText(line);
+
+                    line = br.readLine();
+                    if (line != null)
+                        field3.setText(line);
 
                 } catch (IOException e2) {
                     System.out.println("Can't load from the file");
                 }
-/*                finally {
+                finally {
                     try {
                         if (br != null)
-                          br.close();
+                            br.close();
                     } catch (IOException ex) {
                         System.out.println("ex");
                     }
 
-                }*/
+                }
             }
         });
 
