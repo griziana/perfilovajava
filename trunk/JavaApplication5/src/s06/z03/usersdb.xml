@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
     <user id="1">
-        <name>Petr</name>
-        <surname>Petrov</surname>
+        <name>Ivan</name>
+        <surname>Ivanov</surname>
         <age>18</age>
         <city>SPb</city>
     </user>
 
     <user id="2">
-        <name>Ivan</name>
-        <surname>Ivanov</surname>
+        <name>Petr</name>
+        <surname>Petrov</surname>
         <age>19</age>
         <city>Moscow</city>
     </user>

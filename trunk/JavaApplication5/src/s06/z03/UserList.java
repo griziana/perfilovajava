@@ -1,41 +1,86 @@
 package s06.z03;
 
 import org.w3c.dom.*;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.swing.text.*;
-import javax.swing.text.Element;
 import javax.xml.parsers.*;
-import java.io.File;
-import java.io.IOException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class UserList extends ArrayList<User> {
-    public static UserList loadFromXML(String fname) {
+
+    public static UserList loadFromXML(String fname) throws IOException {
         UserList ul = new UserList();
+        User user = new User();
         DocumentBuilderFactory bf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = bf.newDocumentBuilder();
             Document doc = null;
             try {
                 doc = db.parse(new File(fname));
-            } catch (SAXException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (Exception e) {
+                throw new IOException("failed to load xml");
             }
-            org.w3c.dom.Element users = doc.getDocumentElement();
+            Element users = doc.getDocumentElement();
             System.out.println(users);
             NodeList nl = users.getElementsByTagName("user");
 
+
             int size = nl.getLength();
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++) {
                 System.out.println(nl.item(i));
+
+                Element element = (Element) nl.item(i);
+                NodeList idnl = element.getElementsByTagName("id");
+                Element element2 = (Element) idnl.item(0); //элемент в id
+                Text idtxt = (Text) element2.getFirstChild(); //достал то, что внутри id
+                String id = idtxt.getTextContent(); //превратил в строку
+
+                NodeList namenl = element.getElementsByTagName("name");
+                Element element3 = (Element) namenl.item(0); 
+                Text nametxt = (Text) element3.getFirstChild(); 
+                String name = nametxt.getTextContent(); 
+
+                NodeList snamenl = element.getElementsByTagName("surname");
+                Element element4 = (Element) snamenl.item(0); 
+                Text snametxt = (Text) element4.getFirstChild(); 
+                String sname = snametxt.getTextContent(); 
+
+                NodeList agenl = element.getElementsByTagName("age");
+                Element element5 = (Element) agenl.item(0); 
+                Text agetxt = (Text) element5.getFirstChild(); 
+                String age = agetxt.getTextContent(); 
+
+                NodeList citynl = element.getElementsByTagName("city");
+                Element element6 = (Element) citynl.item(0); 
+                Text citytxt = (Text) element6.getFirstChild(); 
+                String city = citytxt.getTextContent(); 
+
+                ul.add(user);
+
+            }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return ul;
     }
 
+    /*    public static UserList saveToXML(String fname) {
+    return;
+    }*/
+    public void saveXMLToWriter(Writer w, Document xmldoc) throws TransformerException {
+        //������� � ��������� ���������������
+        TransformerFactory transfac = TransformerFactory.newInstance();
+        Transformer trans = transfac.newTransformer();
+        trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        //��������� ���������������
+        StreamResult result = new StreamResult(w);
+        DOMSource source = new DOMSource(xmldoc);
+        trans.transform(source, result);
+    }
 }
