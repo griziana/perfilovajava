@@ -1,12 +1,6 @@
 package s06.z03;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Shadow2
- * Date: 18.04.2010
- * Time: 10:52:31
- * To change this template use File | Settings | File Templates.
- */
+
 public class User {
     private int id;
     private String name;
@@ -52,6 +46,15 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public User(int userid, String username, String usersurname, int userage, String usercity) {
+        id = userid;
+        name = username;
+        surname = usersurname;
+        age = userage;
+        city = usercity;
+
     }
 
     public String toString() {

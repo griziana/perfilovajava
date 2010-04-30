@@ -11,7 +11,7 @@ public class zadacha03 {
 
     public static void main(String[] args) {
         try {
-            UserList ul = UserList.loadFromXML("I:/java/JavaApplication5/src/s06/z03/usersdb.xml");
+            UserList ul = UserList.loadFromXML("usersdb.xml");
             for (User user:ul) {
                 System.out.println(user);
             }
@@ -19,10 +19,10 @@ public class zadacha03 {
             System.out.println("failed to load XML");
         }
 
-        TableLayout tl = new TableLayout(new double[]{0.25, 0.25, 0.25, 0.25},
-                new double[]{0.25, 0.25, 0.25, 0.25});
+        TableLayout tl = new TableLayout(new double[]{0.5, 0.5},
+                new double[]{0.3, 0.3, 0.3});
         final JFrame f = new JFrame();
-        f.setSize(640, 480);
+        f.setSize(350, 300);
         f.setLocationRelativeTo(null);
         f.setLayout(tl);
         f.setResizable(false);
@@ -33,12 +33,15 @@ public class zadacha03 {
 
         JTable table = new JTable();
 
-        f.add(new JScrollPane(table), "0 0");
+        f.add(new JScrollPane(table), "0,0,0,2");
+        f.add(loadxml, "1,0");
+        f.add(savelist, "1,1");
+        f.add(deluser, "1,2");
 
         table.setModel(new AbstractTableModel() {
 
             public int getRowCount() {
-                return 10;
+                return 5;
             }
 
             public int getColumnCount() {
