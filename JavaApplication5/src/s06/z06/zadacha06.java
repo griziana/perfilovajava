@@ -9,13 +9,6 @@ import java.util.*;
 import java.awt.event.*;
 
 
-/**
- * Created by IntelliJ IDEA.
- * User: Shadow2
- * Date: 27.04.2010
- * Time: 13:27:11
- * To change this template use File | Settings | File Templates.
- */
 public class zadacha06 extends JPanel {
     public void paintComponent(Graphics g) {
         g.setColor(Color.BLACK);
@@ -31,25 +24,41 @@ public class zadacha06 extends JPanel {
         int y0 = 150;
         int R = 100;
 
+        for (int i = 0; i < 12; i++) {
+            g.drawLine(
+                    evalX(x0, y0, 100, 30*i),
+                    evalY(x0, y0, 100, 30*i),
+                    evalX(x0, y0, 90, 30*i),
+                    evalY(x0, y0, 90, 30*i)
+            );
+        }
+
+
         g.drawOval(x0 - R, y0 - R, 2 * R, 2 * R);
         g.drawLine(
                 x0,
                 y0,
-                (int) Math.round(x0 + 40 * Math.sin(((h * 60 + m) / 2) / 180 * Math.PI)),
-                (int) Math.round(y0 - 40 * Math.cos(((h * 60 + m) / 2) / 180 * Math.PI))
+                evalX(x0, y0, 40, (h * 60 + m) / 2),
+                evalY(x0, y0, 40, (h * 60 + m) / 2)
+                //(int) Math.round(x0 + 40 * Math.sin(((h * 60 + m) / 2) / 180 * Math.PI)),
+                //(int) Math.round(y0 - 40 * Math.cos(((h * 60 + m) / 2) / 180 * Math.PI))
         );
 
         g.drawLine(
                 x0,
                 y0,
-                (int) Math.round(x0 + 70 * Math.sin((s * 6) / 180 * Math.PI)),
-                (int) Math.round(y0 - 70 * Math.cos((s * 6) / 180 * Math.PI))
+                evalX(x0, y0, 70, (s * 6)),
+                evalY(x0, y0, 70, (s * 6))
+                /*(int) Math.round(x0 + 70 * Math.sin((s * 6) / 180 * Math.PI)),
+                (int) Math.round(y0 - 70 * Math.cos((s * 6) / 180 * Math.PI))*/
         );
         g.drawLine(
                 x0,
                 y0,
-                (int) Math.round(x0 + 60 * Math.sin((m * 6) / 180 * Math.PI)),
-                (int) Math.round(y0 - 60 * Math.cos((m * 6) / 180 * Math.PI))
+                evalX(x0, y0, 60, (m * 6)),
+                evalY(x0, y0, 60, (m * 6))
+                /*(int) Math.round(x0 + 60 * Math.sin((m * 6) / 180 * Math.PI)),
+                (int) Math.round(y0 - 60 * Math.cos((m * 6) / 180 * Math.PI))*/
         );
     }
 
@@ -62,6 +71,7 @@ public class zadacha06 extends JPanel {
         f.setSize(300, 350);
         f.add(c1, "0,0");
         f.setVisible(true);
+        f.setResizable(false);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Timer t = new Timer(1000, new ActionListener() {
@@ -71,5 +81,13 @@ public class zadacha06 extends JPanel {
         });
         t.start();
 
+    }
+
+    private int evalX(int x0, int y0, int r, double ang) {
+        return (int) Math.round(x0 + r * Math.sin(ang / 180 * Math.PI));
+    }
+
+    private int evalY(int x0, int y0, int r, double ang) {
+        return (int) Math.round(y0 - r * Math.cos(ang / 180 * Math.PI));
     }
 }
