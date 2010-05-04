@@ -10,6 +10,8 @@ import javax.xml.transform.stream.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+
 
 public class UserList extends ArrayList<User> {
 
@@ -66,7 +68,7 @@ public class UserList extends ArrayList<User> {
                         surname,
                         Integer.parseInt(age),
                         city
-                        );
+                );
                 ul.add(user);
 
             }
@@ -76,21 +78,54 @@ public class UserList extends ArrayList<User> {
         return ul;
     }
 
+    public AbstractTableModel getTableModel() {
+        return new AbstractTableModel() {
+            public int getRowCount() {
+                return UserList.this.size();
+            }
+
+            public int getColumnCount() {
+                return 5;
+            }
+
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Object[][] userlist_data = new Object[UserList.this.size()][5];
+                Object[] user_data = new Object[]{UserList.this.get(rowIndex).getID(),
+                        UserList.this.get(rowIndex).getName(),
+                        UserList.this.get(rowIndex).getSurname(),
+                        UserList.this.get(rowIndex).getAge(),
+                        UserList.this.get(rowIndex).getCity()};
+/*                for (int i = 0; i < UserList.this.size(); i++) {
+                    System.arraycopy(user_data, 0, userlist_data[i], 0, 5);
+                }*/
+                return userlist_data[rowIndex][columnIndex];
+
+            }
+        };
+    }
 
 
-    /*    public static UserList saveToXML(String fname) {
-    return;
-    }*/
+    public void saveToXML(String fname, Document xmldoc) {
 
-/*    public void saveXMLToWriter(Writer w, Document xmldoc) throws TransformerException {
-        //создать и настроить преобразователь
-        TransformerFactory transfac = TransformerFactory.newInstance();
-        Transformer trans = transfac.newTransformer();
-        trans.setOutputProperty(OutputKeys.INDENT, "yes");
+        try {
+            File xmlOutputFile = new File(fname);
+            FileOutputStream fos = new FileOutputStream(xmlOutputFile);
 
-        //запустить преобразователь
-        StreamResult result = new StreamResult(w);
-        DOMSource source = new DOMSource(xmldoc);
-        trans.transform(source, result);
-    }*/
+            //создать и настроить преобразователь
+            TransformerFactory transfac = TransformerFactory.newInstance();
+            Transformer trans = transfac.newTransformer();
+            trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            //запустить преобразователь
+            StreamResult result = new StreamResult(fname);
+            DOMSource source = new DOMSource(xmldoc);
+            trans.transform(source, result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
