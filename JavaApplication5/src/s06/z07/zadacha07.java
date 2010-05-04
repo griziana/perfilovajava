@@ -33,7 +33,7 @@ public class zadacha07 {
                 : infos)
 
         {
-            MidiDevice dev = MidiSystem.getMidiDevice(Info infos);
+            MidiDevice dev = MidiSystem.getMidiDevice(Info info);
             if (dev instanceof Synthesizer) {
                 syn = (Synthesizer) dev;
                 break;
