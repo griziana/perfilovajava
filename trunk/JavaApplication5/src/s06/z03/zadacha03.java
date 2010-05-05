@@ -9,7 +9,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 import org.w3c.dom.*;
 
@@ -22,10 +23,10 @@ public class zadacha03 {
 
     public static void main(String[] args) {
 
-        TableLayout tl = new TableLayout(new double[]{0.5, 0.5},
+        TableLayout tl = new TableLayout(new double[]{0.8, 0.2},
                 new double[]{0.3, 0.3, 0.3});
         final JFrame f = new JFrame();
-        f.setSize(350, 300);
+        f.setSize(550, 300);
         f.setLocationRelativeTo(null);
         f.setLayout(tl);
         f.setResizable(false);
@@ -33,23 +34,23 @@ public class zadacha03 {
         final JButton loadxml = new JButton("Load XML");
         final JButton savelist = new JButton("Save list");
         final JButton deluser = new JButton("Delete user"); //and redraw table
-        final JFileChooser fc = new JFileChooser();
+//        final JFileChooser fc = new JFileChooser();
         table = new JTable(ul.getTableModel());
 
 //        table.setModel(ul.getTableModel());
 
         loadxml.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int returnv = fc.showOpenDialog(null);
+
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XML-פאיכ (*.xml)", "xml");
+                JFileChooser fc = new JFileChooser(".");
+                fc.addChoosableFileFilter(filter);
+
+                int returnv = fc.showOpenDialog(fc);
+
                 if (returnv == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        ul = UserList.loadFromXML(fc.getSelectedFile().getName());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                    ul.loadFromXML(fc.getSelectedFile().getPath());
                     Table();
-
-
                 } else {
                     System.out.println("To continue work choose the XML file.");
                 }
@@ -63,12 +64,12 @@ public class zadacha03 {
                     DocumentBuilder db = dbf.newDocumentBuilder();
                     Document xmldoc = db.newDocument();
 
-                    Element root = xmldoc.createElement("students");
+                    Element root = xmldoc.createElement("users");
                     xmldoc.appendChild(root);
 
                     for (int s = 0; s < ul.size(); s++) {
 
-                        Element student = xmldoc.createElement("student");
+                        Element student = xmldoc.createElement("user");
                         student.setAttribute("id", Integer.toString(ul.get(s).getID()));
                         student.setAttribute("age", Integer.toString(ul.get(s).getAge()));
                         root.appendChild(student);
@@ -128,8 +129,8 @@ public class zadacha03 {
 
         ListSelectionModel tipListSelectionModel = table.getSelectionModel();
         tipListSelectionModel.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent evt) {
-                ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
+            public void valueChanged(ListSelectionEvent ev) {
+                ListSelectionModel lsm = (ListSelectionModel) ev.getSource();
                 row = lsm.getMinSelectionIndex();
             }
         });

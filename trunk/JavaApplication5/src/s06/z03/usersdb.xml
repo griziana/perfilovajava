@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
-    <user id="1">
+    <user id="1" age="18">
         <name>Ivan</name>
         <surname>Ivanov</surname>
-        <age>18</age>
         <city>SPb</city>
     </user>
 
-    <user id="2">
+    <user id="2" age="19">
         <name>Petr</name>
         <surname>Petrov</surname>
-        <age>19</age>
         <city>Moscow</city>
     </user>
 
-    <user id="3">
+    <user id="3" age="20">
         <name>Sidor</name>
         <surname>Sidorov</surname>
-        <age>20</age>
         <city>Gus-Hrustalny</city>
     </user>
 </users>
