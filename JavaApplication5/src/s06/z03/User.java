@@ -48,14 +48,14 @@ public class User {
         this.city = city;
     }
 
-    public User(int userid, String username, String usersurname, int userage, String usercity) {
+/*    public User(int userid, String username, String usersurname, int userage, String usercity) {
         id = userid;
         name = username;
         surname = usersurname;
         age = userage;
         city = usercity;
 
-    }
+    }*/
 
     public String toString() {
         return "User{" + "id:" + id + ", name:" + name + ", surname:" + surname + ", age=" + age + ", city:" + city + '}';
