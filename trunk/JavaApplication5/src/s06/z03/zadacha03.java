@@ -23,10 +23,10 @@ public class zadacha03 {
 
     public static void main(String[] args) {
 
-        TableLayout tl = new TableLayout(new double[]{0.8, 0.2},
-                new double[]{0.3, 0.3, 0.3});
+        TableLayout tl = new TableLayout(new double[]{0.333, 0.333, 0.333},
+                new double[]{0.8, 0.2});
         final JFrame f = new JFrame();
-        f.setSize(550, 300);
+        f.setSize(500, 300);
         f.setLocationRelativeTo(null);
         f.setLayout(tl);
         f.setResizable(false);
@@ -112,10 +112,10 @@ public class zadacha03 {
             }
         });
 
-        f.add(new JScrollPane(table), "0,0,0,2");
-        f.add(loadxml, "1,0");
+        f.add(new JScrollPane(table), "0,0,2,0");
+        f.add(loadxml, "0,1");
         f.add(savelist, "1,1");
-        f.add(deluser, "1,2");
+        f.add(deluser, "2,1");
         f.setVisible(true);
     }
 
