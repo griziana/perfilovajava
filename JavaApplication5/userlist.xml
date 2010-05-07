@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<users>
+<user age="18" id="1">
+<name>Ivan</name>
+<surname>Ivanov</surname>
+<city>SPb</city>
+</user>
+<user age="20" id="3">
+<name>Sidor</name>
+<surname>Sidorov</surname>
+<city>Gus-Hrustalny</city>
+</user>
+</users>

@@ -136,7 +136,9 @@ public class UserList extends ArrayList<User> {
                 newUser.setAge(Integer.parseInt(rs.getString(4)));
                 newUser.setCity(rs.getString(5));
                 UserList.this.add(newUser);
+
             }
+            st.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,10 +151,11 @@ public class UserList extends ArrayList<User> {
             Connection con = DriverManager.getConnection(url, login, password);
             Statement stm = con.createStatement();
             for (User user : this) {
-                String savecom = "INSERT INTO user VALUES (" + user.getID() + ", '" + user.getName() + "', '" + user.getSurname() + "', '" + user.getAge() + "', " + user.getCity() + ")";
+                String savecom = "INSERT INTO user VALUES ('" + user.getID() + "', '" + user.getName() + "', '" + user.getSurname() + "', '" + user.getAge() + "', '" + user.getCity() + "')";
+//                System.out.println(savecom);
                 stm.execute(savecom);
             }
-
+            stm.close();
 
         } catch (Exception e) {
             e.printStackTrace();
