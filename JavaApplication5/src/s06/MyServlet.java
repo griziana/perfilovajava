@@ -1,11 +1,10 @@
 package s06;
 
-import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 
 
-public class MyServlet extends HttpServlet implements SingleThreadModel {
+public class MyServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String name = req.getParameter("name");
         resp.setContentType("text/html");

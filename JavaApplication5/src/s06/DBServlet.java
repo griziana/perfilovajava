@@ -35,10 +35,8 @@ public class DBServlet extends HttpServlet {
                 pw.println("</tr>");
             }
             st.close();
-            
-            pw.println("/table>");
-            pw.println("/center>");
-            pw.println("</body></html>");
+
+            pw.println("</table></center></body></html>");
 
         } catch (Exception e) {
             e.printStackTrace();
