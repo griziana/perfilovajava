@@ -28,11 +28,11 @@ public class DBServlet extends HttpServlet {
 
             while (rs.next()) {
                 pw.println("<tr>");
-                pw.println("<td>" + rs.getString(1) + "</td>"); //ID
-                pw.println("<td>" + rs.getString(2) + "</td>"); //name
-                pw.println("<td>" + rs.getString(3) + "</td>"); //surname
-                pw.println("<td>" + rs.getString(4) + "</td>"); //age
-                pw.println("<td>" + rs.getString(5) + "</td>"); // city
+                pw.println("<td>" + rs.getString(1) + "</td>");
+                pw.println("<td>" + rs.getString(2) + "</td>");
+                pw.println("<td>" + rs.getString(3) + "</td>");
+                pw.println("<td>" + rs.getString(4) + "</td>");
+                pw.println("<td>" + rs.getString(5) + "</td>");
                 pw.println("</tr>");
             }
 
