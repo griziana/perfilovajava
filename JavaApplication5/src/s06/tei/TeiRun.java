@@ -84,7 +84,7 @@ public class TeiRun {
                 try {
 
                     String content0 = textPane.getText();
-                    Pattern p1 = Pattern.compile("(<table(.*)><tr><td bgcolor=\"#e4e1d9\"><b>)(.*)(\\s*;\\s*</b>)(.*)(\\s*;\\s*)(.*)(\\s*;\\s*</td></tr></table><h3>)(.*)(\\s*</h3>)");
+                    Pattern p1 = Pattern.compile("(<table(.*?)><tr><td bgcolor=\"#e4e1d9\"><b>)(.*?)(\\s*;\\s*</b>)(.*?)(\\s*;\\s*)(.*?)(\\s*;\\s*</td></tr></table><h3>)(.*?)(\\s*</h3>)");
                     Matcher m1 = p1.matcher(content0);
                     while (m1.find()) {
 
@@ -98,8 +98,8 @@ public class TeiRun {
                 }
 
 
-                converter(textPane, "(<table(.*)><tr><td bgcolor=\"#e4e1d9\"><b>)(.*)(\\s*;\\s*</b>)(.*)(\\s*;\\s*)(.*)(\\s*;\\s*</td></tr></table><h3>)(.*)(\\s*</h3>)",
-                        "<teiHeader>\n<fileDesc>\n<<teiHeader>\n" +
+                converter(textPane, "(<table(.*?)><tr><td bgcolor=\"#e4e1d9\"><b>)(.*?)(\\s*;\\s*</b>)(.*?)(\\s*;\\s*)(.*?)(\\s*;\\s*</td></tr></table><h3>)(.*?)(\\s*</h3>)",
+                        "<teiHeader>\n" +
                                 " <fileDesc>\n" +
                                 " <titleStmt>\n" +
                                 " <title>" + title + "</title>\n" +
@@ -119,7 +119,7 @@ public class TeiRun {
 
                 converter(textPane, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">",
                         "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">");
-                converter(textPane, "(<head>)(.*)(</head>)", "\n");
+                converter(textPane, "(<head>)(.*?)(</head>)", "\n");
                 converter(textPane, "<html>", "");
                 converter(textPane, "</html>", "</TEI>");
                 converter(textPane, "<body>", "\n");
@@ -128,8 +128,8 @@ public class TeiRun {
                 converter(textPane, "</pre>", "\n\n</p>\n</body>\n</text>");
                 converter(textPane, "<b>", "");
                 converter(textPane, "</b>", "");
-                converter(textPane, "<font(.*)>", "<hi>");
-                converter(textPane, "</font>", "</hi>");
+                converter(textPane, "<font(.*?)>", "");
+                converter(textPane, "</font>", "");
 
 
             }
